@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>To-Do List</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Enter a new task..." />
+    <button class="add-btn" onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
+
+      if (taskText === "") {
+        alert("Task cannot be empty!");
+        return;
+      }
+
+      const li = document.createElement("li");
+
+      const span = document.createElement("span");
+      span.textContent = taskText;
+      span.className = "task-text";
+
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "✔ Done";
+      doneBtn.className = "done-btn";
+      doneBtn.onclick = (e) => {
+        e.stopPropagation();
+        li.classList.toggle("completed");
+      };
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "Delete";
+      delBtn.className = "delete-btn";
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        li.remove();
+      };
+
+      li.appendChild(span);
+      li.appendChild(doneBtn);
+      li.appendChild(delBtn);
+
+      document.getElementById("taskList").appendChild(li);
+      input.value = "";
+    }
+  </script>
+</body>
+</html>
